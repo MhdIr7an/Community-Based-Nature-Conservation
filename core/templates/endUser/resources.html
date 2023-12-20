@@ -1,0 +1,128 @@
+{% extends 'index.html' %}
+
+
+
+{% block sidebar %}
+            {% if request.user.user_type == 1 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'volunteer' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-hands-helping"></i>
+                </span>
+                <span class="hide-menu">Volunteer</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'raise_issues' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-exclamation-circle"></i>
+                </span>
+                <span class="hide-menu">Raise Issue</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="{% url 'resources' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-book"></i>
+                </span>
+                <span class="hide-menu">Resources</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'marketPlace' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-shopping-cart"></i>
+                </span>
+                <span class="hide-menu">MarketPlace</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'donate' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-heart"></i>
+                </span>
+                <span class="hide-menu">Donate</span>
+              </a>
+            </li>
+            {% endif %}
+            {% endblock sidebar %}
+
+
+
+
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .main-container {
+    width: 82%; /* Move the div to the right by 30% */
+    margin-left: 18%; /* Offset for the width change */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    text-align: center; /* Center the "Actions" header */
+  }
+  .text-center {
+    text-align: center;
+  }
+  {% comment %} .btn-accept {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-reject {
+    background-color: #dc3545;
+    color: white;
+  } {% endcomment %}
+</style>
+
+<div class="main-container">
+  <div class="product-group flex flex-wrap gap-8 mx-auto">
+    {% for resources in view_resources %}
+    <a href="{{ resources.published_file.url }}" target="_blank">
+    <div
+      class="product-container w-[280px] h-[320px] rounded-lg drop-shadow bg-white cursor-pointer hover:scale-105 ease-in-out transition-all duration-400 p-4 mb-4 hover:border hover:border-gray-500/60"
+    >
+      <div class="content-container w-full flex items-center flex-col my-2">
+        {% comment %} <h1 class="text-lg font-semibold opacity-70 mb-1">{{product.title}}</h1>
+        <p class="text-xs mb-1">{{product.description}}</p>
+        <h2 class="font-semibold opacity-80 text-lg mb-1">₹ {{product.price}}</h2> {% endcomment %}
+        <br><br>
+        <h1 class="font-semibold opacity-80 text-lg mb-1">published by : <br><center>{{ resources.publisher_id.username }}</center></h1>
+        {% comment %} <p class="text-xs mb-1">{{ resource.published_file.name }}</p> {% endcomment %}
+        {% comment %} <h2 class="font-semibold opacity-80 text-lg mb-1">₹ price</h2> {% endcomment %}
+        <h4 class="opacity-80 text-lg mb-1">{{ resources.published_date|date:"d-m-Y" }}</h4>
+        <br><br>
+        <h3 class="opacity-80 text-lg mb-1">{{ resources.description }}</h3>
+        {% comment %} <p class="text-xs mb-1">{{ event.task }}</p> {% endcomment %}
+      </div>
+      {% comment %} <div class="button-container w-full flex justify-center my-1">
+        <a
+          class="bg-gray-500 text-white px-6 py-2 text-sm font-bold rounded-lg hover:bg-gray-500/80"
+          href="register_event_/{{ event.event_id }}"
+          >Register</a
+        >
+      </div> {% endcomment %}
+    </div>
+  </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

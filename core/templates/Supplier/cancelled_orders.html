@@ -1,0 +1,93 @@
+{% extends 'index.html' %}
+
+{% block sidebar %}
+{% include 'sidebar.html' %}
+  {% endblock sidebar %}
+
+
+  {% block content %}
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    .main-container {
+      width: 82%; /* Move the div to the right by 30% */
+      margin-left: 18%; /* Offset for the width change */
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+      text-align: center; /* Center the "Actions" header */
+    }
+    .text-center {
+      text-align: center;
+    }
+    {% comment %} .btn-accept {
+      background-color: #28a745;
+      color: white;
+    }
+    .btn-reject {
+      background-color: #dc3545;
+      color: white;
+    } {% endcomment %}
+  </style>
+  <div class="main-container">
+      <div class="flex justify-between mx-12 pt-6">
+          <h3 class="font-bold">
+              Cancelled Orders
+          </h3>
+      </div>
+      <table class="table w-full mt-4">
+          <thead class="table-head bg-amber-500 h-14">
+              <tr class="bg-gray-400">
+                  <th class="w-1/25">#</th>
+                  <th class="w-1/5">Customer</th>
+                  <th class="w-1/5">Item Name</th>
+                  <th class="w-1/5">Date</th>
+                  {% comment %} <th class="w-1/5">Price</th> {% endcomment %}
+                  <th class="w-1/7">Qty</th>
+                  <th class="w-1/7">Total</th>
+                  <th class="w-1/5">Action</th>
+                </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+      <tr class="odd:bg-gray-100 even:bg-white">
+          <th class="py-2"><p class="text-black font-semibold text-base">{{ forloop.counter }}</p></th>
+          <th class="py-2"><a href="{% url 'user_profile' order.customer_id.user_id %}"><p class="text-black font-semibold text-base">{{ order.customer_id.username }}</p></a></th>
+          <th class="py-2"><a href="{% url 'item_description' order.item_id.item_id %}"><p class="text-black font-semibold text-base">{{ order.item_id.item_name }}</p></a></th>
+          {% comment %} <th class="py-2">
+            <center>
+              <img src="{{ order.item_id.img.url }}" alt="{{ order.item_id.item_name }}" class="w-20 h-20 object-cover">
+          </center>
+            </th> {% endcomment %}
+            <th class="py-2"><p class="text-black font-semibold text-base">{{ order.date|date:"d.m.Y" }}</p></th>
+          {% comment %} <th class="py-2"><p class="text-black font-semibold text-base">{{ order.price }}</p></th> {% endcomment %}
+          <th class="py-2"><p class="text-black font-semibold text-base">{{ order.qty }}</p></th>
+          <th class="py-2"><p class="text-black font-semibold text-base">{{ order.total }}</p></th>
+          <th class="py-2 text-center">
+            <a href="{% url 'return_pay' order.order_id %}" class="rounded-lg border text-green-600 border-green-600 px-4 py-1 bg-red mr-4 text-sm font-semibold hover:bg-green-600 hover:text-white btn-accept">Return Pay</a>
+           </th>
+      </tr>
+  {% endfor %}
+          </tbody>
+      </table>
+  </div>
+  
+  
+  {% endblock content %}

@@ -1,0 +1,327 @@
+{% if request.user.user_type == 0 %}
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="{% url 'organiser_requests' %}" aria-expanded="false">
+          <span>
+            <i class="fas fa-users"></i>
+          </span>
+          <span class="hide-menu">Organiser Requests</span>
+        </a>
+      </li>
+
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="{% url 'supplier_requests' %}" aria-expanded="false">
+          <span>
+            <i class="fas fa-truck"></i>
+          </span>
+          <span class="hide-menu">Supplier Requests</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="{% url 'researcher_requests' %}" aria-expanded="false">
+          <span>
+            <i class="fas fa-book"></i>
+          </span>
+          <span class="hide-menu">Researcher Requests</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="{% url 'raised_issues' %}" aria-expanded="false">
+          <span>
+            <i class="fas fa-exclamation-circle"></i>
+          </span>
+          <span class="hide-menu">Verify Issues</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="{% url 'donations' %}" aria-expanded="false">
+          <span>
+            <i class="fas fa-heart"></i>
+          </span>
+          <span class="hide-menu">Donations</span>
+        </a>
+      </li>
+            {% elif request.user.user_type == 1 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'volunteer' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-hands-helping"></i>
+                </span>
+                <span class="hide-menu">Volunteer</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'raise_issues' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-exclamation-circle"></i>
+                </span>
+                <span class="hide-menu">Raise Issue</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'resources' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-book"></i>
+                </span>
+                <span class="hide-menu">Resources</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'marketPlace' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-shopping-cart"></i>
+                </span>
+                <span class="hide-menu">MarketPlace</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'donate' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-heart"></i>
+                </span>
+                <span class="hide-menu">Donate</span>
+              </a>
+            </li>
+            {% elif request.user.user_type == 2 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'organise_event' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-users"></i>
+                </span>
+                <span class="hide-menu">Organise Event</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'manage_volunteers' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-hands-helping"></i>
+                </span>
+                <span class="hide-menu">Manage Volunteers</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'raised_issues' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-exclamation-circle"></i>
+                </span>
+                <span class="hide-menu">Verify Issues</span>
+              </a>
+            </li>
+            {% elif request.user.user_type == 3 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'orders' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-shopping-cart"></i>
+                </span>
+                <span class="hide-menu">Orders</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'list_items' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-list"></i>
+                </span>
+                <span class="hide-menu">List Products</span>
+              </a>
+            </li>
+            {% elif request.user.user_type == 4 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'publish_paper' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="hide-menu">Publish Paper</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'manage_resources' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-book"></i>
+                </span>
+                <span class="hide-menu">Manage Resources</span>
+              </a>
+            </li>
+      {% endif %}
+
+
+{% comment %}   
+  {% load static %}
+  
+  
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+
+            {% block sidebar %}
+            {% if request.user.user_type == 0 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="organiser_requests" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Organiser Requests</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="supplier_requests" aria-expanded="false">
+                <span>
+                  <i class="ti ti-shopping-cart"></i>
+                </span>
+                <span class="hide-menu">Supplier Requests</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="researcher_requests" aria-expanded="false">
+                <span>
+                  <i class="ti ti-check"></i>
+                </span>
+                <span class="hide-menu">Researcher Requests</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="raised_issues" aria-expanded="false">
+                <span>
+                  <i class="ti ti-check"></i>
+                </span>
+                <span class="hide-menu">Raised Issues</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="donations" aria-expanded="false">
+                <span>
+                  <i class="ti ti-check"></i>
+                </span>
+                <span class="hide-menu">Donations</span>
+              </a>
+            </li>
+            {% endif %}
+
+
+            {% if request.user.user_type == 1 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="volunteer" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Volunteer</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="supplier_requests" aria-expanded="false">
+                <span>
+                  <i class="ti ti-shopping-cart"></i>
+                </span>
+                <span class="hide-menu">Raise Issue</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="researcher_requests" aria-expanded="false">
+                <span>
+                  <i class="ti ti-check"></i>
+                </span>
+                <span class="hide-menu">Resources</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="raised_issues" aria-expanded="false">
+                <span>
+                  <i class="ti ti-check"></i>
+                </span>
+                <span class="hide-menu">MarketPlace</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="donations" aria-expanded="false">
+                <span>
+                  <i class="ti ti-check"></i>
+                </span>
+                <span class="hide-menu">Donate</span>
+              </a>
+            </li>
+            {% endif %}
+
+
+
+            {% if request.user.user_type == 2 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="organiser_requests" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Organise Event</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="supplier_requests" aria-expanded="false">
+                <span>
+                  <i class="ti ti-shopping-cart"></i>
+                </span>
+                <span class="hide-menu">Manage Volunteers</span>
+              </a>
+            </li>
+            {% endif %}
+
+
+            {% if request.user.user_type == 3 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="organiser_requests" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Orders</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="supplier_requests" aria-expanded="false">
+                <span>
+                  <i class="ti ti-shopping-cart"></i>
+                </span>
+                <span class="hide-menu">List Products</span>
+              </a>
+            </li>
+            {% endif %}
+
+            {% if request.user.user_type == 4 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="organiser_requests" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Publish Paper</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="supplier_requests" aria-expanded="false">
+                <span>
+                  <i class="ti ti-shopping-cart"></i>
+                </span>
+                <span class="hide-menu">Manage Resources</span>
+              </a>
+            </li>
+            {% endif %}
+            {% endblock sidebar %}
+
+
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    {% endcomment %}

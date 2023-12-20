@@ -1,0 +1,152 @@
+{% extends 'index.html' %}
+
+
+{% block sidebar %}
+{% if request.user.user_type == 0 %}
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="{% url 'organiser_requests' %}" aria-expanded="false">
+          <span>
+            <i class="fas fa-users"></i>
+          </span>
+          <span class="hide-menu">Organiser Requests</span>
+        </a>
+      </li>
+
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="{% url 'supplier_requests' %}" aria-expanded="false">
+          <span>
+            <i class="fas fa-truck"></i>
+          </span>
+          <span class="hide-menu">Supplier Requests</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="{% url 'researcher_requests' %}" aria-expanded="false">
+          <span>
+            <i class="fas fa-book"></i>
+          </span>
+          <span class="hide-menu">Researcher Requests</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="{% url 'raised_issues' %}" aria-expanded="false">
+          <span>
+            <i class="fas fa-exclamation-circle"></i>
+          </span>
+          <span class="hide-menu">Verify Issues</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link active" href="{% url 'donations' %}" aria-expanded="false">
+          <span>
+            <i class="fas fa-heart"></i>
+          </span>
+          <span class="hide-menu">Donations</span>
+        </a>
+      </li>
+      {% endif %}
+  {% endblock sidebar %}
+
+
+
+
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .main-container {
+    width: 82%; /* Move the div to the right by 30% */
+    margin-left: 18%; /* Offset for the width change */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    text-align: center; /* Center the "Actions" header */
+  }
+  .text-center {
+    text-align: center;
+  }
+  {% comment %} .btn-accept {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-reject {
+    background-color: #dc3545;
+    color: white;
+  } {% endcomment %}
+</style>
+<div class="main-container">
+    <div class="flex justify-between mx-12 pt-6">
+        <h3 class="font-bold">
+            Donations
+        </h3>
+    </div>
+    <table class="table w-full mt-4">
+        <!-- TABLE HEAD -->
+        <thead class="table-head bg-amber-500 h-14 ">
+            <tr class="bg-gray-400 ">
+                <th class="w-0.5">#</th>
+                <th class="w-1/3">Name</th>
+                <th class="w-1/4.3">Date</th>
+                <th class="w-1/4.5">Amount</th>
+            </tr>
+        </thead>
+    
+        <!-- TABLE HEAD ENDS -->
+        
+        <!-- TABLE BODY -->
+        <tbody >
+            <!-- ITEM -->
+    
+    
+        {% comment %} {% for donation in donations %} {% endcomment %}
+    
+        {% for donation in donations_received %}
+            <tr class="odd:bg-gray-100 even:bg-white">
+                <!-- NAME -->
+                <th class="py-2"><p class="text-black font-semibold text-base">{{forloop.counter}}</p></th>
+                <th class="py-2">
+                  <a href="{% url 'user_profile' donation.donator_id.user_id %}"><p class="text-black font-semibold text-base">{{donation.donator_id.username}}</p></a></th>
+                <th class="py-2"><p class="text-black font-semibold text-base">{{donation.dated}}</p></th>
+                <th class="py-2"><p class="text-black font-semibold text-base">₹ {{donation.amount}}</p></th>
+                
+            </tr>
+    
+            {% endfor %}
+           
+        </tbody>
+        <!-- TABLE BODY ENDS -->
+    </table>
+</div>
+
+
+
+{% endblock content %}
+
+
+{% comment %} <div class="w-full h-full bg-white rounded-lg">
+
+    <!-- TITLE -->
+
+    <div class="flex justify-between mx-12 pt-6">
+        <h3 class="font-bold">
+            donations
+        </h3>
+     
+    </div> {% endcomment %}

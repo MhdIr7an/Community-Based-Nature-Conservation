@@ -1,0 +1,114 @@
+{% extends 'index.html' %} 
+
+
+
+
+{% block sidebar %}
+{% include 'sidebar.html' %}
+{% endblock sidebar %}
+
+
+
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .main-container {
+    width: 82%; /* Move the div to the right by 30% */
+    margin-left: 18%; /* Offset for the width change */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    text-align: center; /* Center the "Actions" header */
+  }
+  .text-center {
+    text-align: center;
+  }
+  {% comment %} .btn-accept {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-reject {
+    background-color: #dc3545;
+    color: white;
+  } {% endcomment %}
+</style>
+<div class="main-container">
+    
+    <form method="POST" class="bg-white p-12">
+        {% csrf_token %}
+        <h1 class="w-full text-center font-bold text-xl opacity-70">Order Item</h1>
+        <div class="h-[490px] flex flex-col items-center justify-center">
+            <center>
+                <img src="{{ item.img.url }}" alt="{{ item.item_name }}" class="w-44 h-44 object-cover">
+            </center>
+            <h3 class="font-semibold opacity-80 text-lg mb-1">Item Name: {{ item.item_name }}</h3>
+            <h3 class="font-semibold opacity-80 text-lg mb-1">Description: {{ item.description }}</h3>
+            <h3 class="font-semibold opacity-80 text-lg mb-1">Stock: {{ item.stock }}</h3>
+            <h3 class="font-semibold opacity-80 text-lg mb-1">Price: {{ item.price }}</h3>
+            <h3 class="font-semibold opacity-80 text-lg mb-1">Supplier Name: {{ item.supplier_id.username }}</h3>
+    
+            <input
+                type="number"
+                id="qty"
+                name="qty"
+                class="border rounded-lg w-[400px] h-12 px-2 mt-6 drop-shadow outline-none"
+                required autocomplete="off"
+                placeholder="Enter Qty"
+                oninput="calculateTotal()"
+            >
+            <h3
+                id="total-price"
+                class="font-semibold opacity-80 text-lg mt-4 mb-1" name="total-price"
+            >
+                Total Price: ₹ 0.00
+            </h3>
+            <input
+                type="submit"
+                value="Order"
+                class="border rounded-lg w-[400px] h-12 px-2 mt-6 drop-shadow outline-none bg-gray-600 text-white font-bold cursor-pointer hover:bg-gray-600/90"
+            >
+        </div>
+    </form>
+    
+    <script>
+      function calculateTotal() {
+        // Get the quantity from the input field
+        let qty = parseInt(document.getElementById('qty').value);
+        const stock = {{ item.stock }};
+    
+        // Ensure qty is within stock limits
+        if (qty > stock) {
+          console.log(qty)
+            qty = stock;
+            document.getElementById('qty').value = qty; // Update the input field
+        }
+        
+        const price = parseFloat("{{ item.price }}"); // Convert the price to a float
+        if(isNaN(qty)){
+          qty = 0;
+        }
+        const totalPrice = (price * qty).toFixed(2);
+        document.getElementById('total-price').innerText = `Total Price: ₹${totalPrice}`;
+      }
+    </script>
+
+</div>
+{% endblock content %}

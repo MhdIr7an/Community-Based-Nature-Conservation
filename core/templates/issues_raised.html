@@ -1,0 +1,143 @@
+{% extends 'index.html' %}
+
+
+{% block sidebar %}
+{% include 'sidebar.html' %}
+{% endblock sidebar %}
+
+
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .main-container {
+    width: 82%; /* Move the div to the right by 30% */
+    margin-left: 18%; /* Offset for the width change */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    text-align: center; /* Center the "Actions" header */
+  }
+  .text-center {
+    text-align: center;
+  }
+  {% comment %} .btn-accept {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-reject {
+    background-color: #dc3545;
+    color: white;
+  } {% endcomment %}
+</style>
+<div class="main-container">
+  {% comment %} <div class="flex justify-between mx-12 pt-6">
+    <a href="orders_" class="rounded-lg border text-green-600 border-green-600 px-4 py-1 bg-red mr-4 text-sm font-semibold hover:bg-green-600 hover:text-white btn-add-item" style="float: right;margin-left: 85%;">Orders</a>
+  </div> {% endcomment %}
+  <div class="flex justify-between mx-12 pt-6">
+    <h3 class="font-bold">
+        Active issues
+    </h3>
+</div>
+  <div class="product-group flex flex-wrap gap-8 mx-auto">
+    {% for issue in active_issues %}
+
+    <div
+      class="product-container w-[270px] min-h-[230px] rounded-lg drop-shadow bg-white cursor-pointer hover:scale-105 ease-in-out transition-all duration-400 p-4 mb-4 hover:border hover:border-gray-500/60"
+    >
+      <div class="content-container w-full flex items-center flex-col my-2">
+        {% comment %} <h1 class="text-lg font-semibold opacity-70 mb-1">{{product.title}}</h1>
+        <p class="text-xs mb-1">{{product.description}}</p>
+        <h2 class="font-semibold opacity-80 text-lg mb-1">₹ {{product.price}}</h2> {% endcomment %}
+        <center>
+          <img src="{{ issue.img.url }}" alt="{{ issue.img.url }}" class="w-20 h-20 object-cover">
+      </center>
+        <h1 class="text-lg font-semibold opacity-70 mb-1">{{ issue.location }}</h1>
+        {% comment %} <h2 class="font-semibold opacity-80 text-lg mb-1">₹ price</h2> {% endcomment %}
+        <h3 class="font-semibold opacity-80 text-lg mb-1">User : {{ issue.user_id.username }}</h3>
+        <h4 class="font-semibold opacity-80 text-lg mb-1">Date : {{ issue.issue_date }}</h4>
+        {% comment %} <h4 class="font-semibold opacity-80 text-lg mb-1">{{ issue.issues }}</h4> {% endcomment %}
+      </div>
+      <div class="button-container w-full flex justify-center my-1 gap-9">
+        <a
+          class="bg-gray-500 text-white px-6 py-2 text-sm font-bold rounded-lg hover:bg-gray-500/80"
+          href="{% url 'view_issue_' issue.issue_id %}">view
+        </a>
+        {% if request.user.user_type == 0 %}
+        <a
+            class="bg-red-500 text-white px-6 py-2 text-sm font-bold rounded-lg hover:bg-red-400/80"
+            href="{% url 'close_issue_' issue.issue_id %}">close
+          </a>
+          {% elif request.user.user_type == 2 and request.user.verified %}
+          <a
+            class="bg-red-500 text-white px-6 py-2 text-sm font-bold rounded-lg hover:bg-red-400/80"
+            href="{% url 'close_issue_' issue.issue_id %}">close
+          </a>
+          {% endif %}
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+
+
+
+<div class="main-container" style="margin-top:10px;">
+    {% comment %} <div class="flex justify-between mx-12 pt-6">
+      <a href="orders_" class="rounded-lg border text-green-600 border-green-600 px-4 py-1 bg-red mr-4 text-sm font-semibold hover:bg-green-600 hover:text-white btn-add-item" style="float: right;margin-left: 85%;">Orders</a>
+    </div> {% endcomment %}
+    <div class="flex justify-between mx-12 pt-6">
+        <h3 class="font-bold">
+            closed issues
+        </h3>
+    </div>
+    <div class="product-group flex flex-wrap gap-8 mx-auto">
+      {% for issue in issues %}
+  
+      <div
+        class="product-container w-[270px] min-h-[230px] rounded-lg drop-shadow bg-white cursor-pointer hover:scale-105 ease-in-out transition-all duration-400 p-4 mb-4 hover:border hover:border-gray-500/60"
+      >
+        <div class="content-container w-full flex items-center flex-col my-2">
+          {% comment %} <h1 class="text-lg font-semibold opacity-70 mb-1">{{product.title}}</h1>
+          <p class="text-xs mb-1">{{product.description}}</p>
+          <h2 class="font-semibold opacity-80 text-lg mb-1">₹ {{product.price}}</h2> {% endcomment %}
+          <center>
+            <img src="{{ issue.img.url }}" alt="{{ issue.img.url }}" class="w-20 h-20 object-cover">
+        </center>
+          <h1 class="text-lg font-semibold opacity-70 mb-1">{{ issue.location }}</h1>
+          {% comment %} <h2 class="font-semibold opacity-80 text-lg mb-1">₹ price</h2> {% endcomment %}
+          <h3 class="font-semibold opacity-80 text-lg mb-1">User : {{ issue.user_id.username }}</h3>
+          <h4 class="font-semibold opacity-80 text-lg mb-1">Date : {{ issue.issue_date }}</h4>
+          {% comment %} <h4 class="font-semibold opacity-80 text-lg mb-1">{{ issue.issues }}</h4> {% endcomment %}
+        </div>
+        <div class="button-container w-full flex justify-center my-1">
+          <a
+            class="bg-gray-500 text-white px-6 py-2 text-sm font-bold rounded-lg hover:bg-gray-500/80"
+            href="{% url 'view_issue_' issue.issue_id %}">view
+          </a>
+        </div>
+      </div>
+  
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock content %}

@@ -1,0 +1,65 @@
+{% extends 'home.html' %}
+
+
+
+{% block content %}
+<div class="w-[800px] h-[auto] mx-auto bg-white p-3 mt-3 ">
+    <h1 class="text-center font-bold tracking-widest text-xl">USER REGISTER</h1>
+    <form class="w-full flex flex-wrap gap-3 justify-center mt-6 " method="POST" action="">
+         {% csrf_token %}
+        <input class="border rounded-lg w-[500px] h-12 outline-none px-4 mb-2 drop-shadow border']" name="name" type="text" placeholder=" Name" required autocomplete="off" value={{ name }}>
+        <input class="border rounded-lg w-[500px] h-12 outline-none px-4 mb-2 drop-shadow border']" name="number" type="number" placeholder=" Contact Number" required autocomplete="off" value={{ contact }}>
+        <div class="border rounded-lg drop-shadow h-12">
+            <input type="hidden" name="latitude" id="lat" value=""/>
+            <input type="hidden" name="longitude" id="lng" value=""/>
+            {% comment %} <input type="hidden" name="usertype" value="5"> {% endcomment %}
+        <select name="usertype" class=" opacity-50 px-4 w-[500px] h-12 outline-none mb-2 bg-slate-50 rounded-lg" id="usertype">
+            <option disabled selected value="5"> User Type</option>
+
+            <option value="1">User</option>
+            <option value="2">Organiser</option>
+            <option value="3">Supplier</option>
+            <option value="4">Researcher</option>
+            
+          </select>
+        </div>
+        
+        <!-- <input class="border rounded-lg w-[500px] h-12 outline-none px-4 mb-2 drop-shadow border']" name="state" type="text" placeholder="State"> -->
+        <input class="border rounded-lg w-[500px] h-12 outline-none px-4 mb-2 drop-shadow border']" name="email" type="email" placeholder=" Email" required autocomplete="off" value={{ email }}>
+        {% comment %} <input class="border rounded-lg w-[500px] h-12 outline-none px-4 mb-2 drop-shadow border']" name="location" type="text" placeholder="Location" required> {% endcomment %}
+        <Textarea class="border rounded-lg w-[500px] h-20 outline-none px-4 mb-2 drop-shadow border']" name="location" type="text" placeholder=" Location">{{ location }}</Textarea>
+        <input class="border rounded-lg w-[500px] h-12 outline-none px-4 mb-2 drop-shadow border']" name="pincode" type="number" placeholder=" Pincode" required autocomplete="off" value={{ pincode }}>
+        <input class="border rounded-lg w-[500px] h-12 outline-none px-4 mb-2 drop-shadow border']" name="password" type="password" placeholder=" Password" required autocomplete="off">
+        <input class="border rounded-lg w-[500px] h-10 outline-none px-4 bg-gray-600 text-white font-medium cursor-pointer hover:bg-gray-600/80" type="submit" value="REGISTER">
+    </form><br>
+    <center>
+    {% for message in messages %}
+    <p class="mt-1/2 mb-2 text-xs text-red-500">{{message}}</p>
+    {% endfor %}
+    <p class="text-black opacity-70 mt-3">Already have an Account ?<span><a class="text-gray-500 ml-2 hover:text-gray-600 font-semibold" href="{% url 'login' %}">Login</a></span> </p
+    </center>
+    </div>
+
+
+
+<script> 
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+    
+    function showPosition(position) {
+    lat = document.getElementById('lat')
+    lng = document.getElementById('lng')
+     lat.value = position.coords.latitude
+     lng.value = position.coords.longitude
+    }
+
+    
+getLocation()
+    </script>
+
+{% endblock content %}

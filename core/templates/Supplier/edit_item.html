@@ -1,0 +1,112 @@
+{% extends 'index.html' %}
+
+{% block sidebar %}
+{% include 'sidebar.html' %}
+  {% endblock sidebar %}
+
+
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .main-container {
+    width: 82%; /* Move the div to the right by 30% */
+    margin-left: 18%; /* Offset for the width change */
+    height: 100%; 
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    text-align: center; /* Center the "Actions" header */
+  }
+  .text-center {
+    text-align: center;
+  }
+  {% comment %} .btn-accept {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-reject {
+    background-color: #dc3545;
+    color: white;
+  } {% endcomment %}
+</style>
+<div class="main-container">
+    
+  <form method="POST" class="bg-white p-12" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1 class="w-full text-center font-bold text-xl opacity-70">Edit Product</h1>
+    <div class="h-[auto] flex flex-col items-center justify-center">
+        <input type="text" value="{% if item %}{{ item.item_name }}{% else %}{{ item_name }}{% endif %}" name="item-name" class="border rounded-lg w-[600px] h-12 px-2 mt-6 drop-shadow outline-none" required autocomplete="off" placeholder=" Item Name">
+        <label class="border rounded-lg w-[600px] h-12 px-2 mt-6 drop-shadow outline-none cursor-pointer select-image-label">
+            <span id="file-upload-status" class="file-label">Upload Image</span>
+            <input id="uploaded-img" type="file" name="Img" class="file-hidden" accept="image/*">
+        </label>
+
+        <style>
+            .select-image-label {
+                display: block;
+                padding: 0;
+                margin: 0;
+                text-align: center;
+                border: 1px solid #ccc;
+                border-radius: 0.25rem;
+                cursor: pointer;
+            }
+
+            .file-label {
+                display: inline-block;
+                padding: 0.5rem 0;
+            }
+
+            .file-label:hover {
+                background-color: #f1f1f1;
+            }
+
+            .file-hidden {
+                display: none;
+            }
+        </style>
+        <input value="{% if item %}{{ item.price }}{% else %}{{ price }}{% endif %}" type="number" name="price" class="border rounded-lg w-[600px] h-12 px-2 mt-6 drop-shadow outline-none" required autocomplete="off" placeholder=" Price">
+        <input value="{% if item %}{{ item.stock }}{% else %}{{ stock }}{% endif %}" type="number" name="stock" class="border rounded-lg w-[600px] h-12 px-2 mt-6 drop-shadow outline-none" required autocomplete="off" placeholder=" Stock">
+        <Textarea name="description" class="border rounded-lg w-[600px] h-20 px-2 mt-6 drop-shadow outline-none" placeholder=" Description">{% if item %}{{ item.description }}{% else %}{{ description }}{% endif %}</Textarea>
+
+        <input type="submit" value="Update product" class="border rounded-lg w-[600px] h-12 px-2 mt-6 drop-shadow outline-none border-green-600 text-green-600 px-4 py-1 hover:bg-green-600 hover:text-white text-sm font-semibold btn-add-item">
+        <br>  
+            {% for message in messages %}
+              <p class="text-xs text-red-500">{{ message }}</p>
+              {% endfor %}
+    </div>
+</form>
+
+  <script>
+    document.getElementById('uploaded-img').addEventListener('change', function() {
+        const fileInput = document.getElementById('uploaded-img');
+        const fileStatusLabel = document.getElementById('file-upload-status');
+        if (fileInput.files.length > 0) {
+            fileStatusLabel.textContent = `${fileInput.files[0].name} Uploaded`;
+        } else {
+            fileStatusLabel.textContent = 'Upload Image';
+        }
+    });
+  </script>
+</div>
+                    
+
+{% endblock content %}

@@ -1,0 +1,77 @@
+{% extends 'index.html' %} 
+
+{% block sidebar %}
+{% include 'sidebar.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .main-container {
+    width: 82%; /* Move the div to the right by 30% */
+    margin-left: 18%; /* Offset for the width change */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    text-align: center; /* Center the "Actions" header */
+  }
+  .text-center {
+    text-align: center;
+  }
+  {% comment %} .btn-accept {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-reject {
+    background-color: #dc3545;
+    color: white;
+  } {% endcomment %}
+</style>
+<div class="main-container">
+    
+       <h1 class="w-full text-center font-bold text-xl opacity-70">USER PROFILE</h1>
+        <div class="h-[490px] flex flex-col items-center justify-center">
+            <h3 class="font-semibold opacity-80 text-lg mb-1">User Name: {{ user.username }}</h3>
+            {% if user.user_type == 1 %}
+          <h3 class="font-semibold opacity-80 text-lg mb-1">User Type : User</h3>
+          {% elif user.user_type == 2 %}
+          <h3 class="font-semibold opacity-80 text-lg mb-1">User Type : Organiser</h3>
+          {% elif user.user_type == 3 %}
+          <h3 class="font-semibold opacity-80 text-lg mb-1">User Type : Supplier</h3>
+          {% elif user.user_type == 4 %}
+          <h3 class="font-semibold opacity-80 text-lg mb-1">User Type : Researcher</h3>
+          {% else %}
+          <h3 class="font-semibold opacity-80 text-lg mb-1">User Type : Admin</h3>
+          {% endif %}
+            <h3 class="font-semibold opacity-80 text-lg mb-1">Contact: {{ user.contact }}</h3>
+            <h3 class="font-semibold opacity-80 text-lg mb-1">Email: {{ user.email }}</h3>
+            <h3 class="font-semibold opacity-80 text-lg mb-1">Location: {{ user.location }}</h3>
+            <h3 class="font-semibold opacity-80 text-lg mb-1">Pincode: {{ user.pincode }}</h3>
+            {% if user.user_type > 1 %}
+            {% if user.verified == False %}
+            <h3 class="font-semibold opacity-80 text-lg mb-1 text-red-400">User Not Verified</h3>
+            {% else %}
+            <h3 class="font-semibold opacity-80 text-lg mb-1 text-green-400">User Verified</h3>
+            {% endif %}
+            {% endif %}
+    
+</div>
+{% endblock content %}

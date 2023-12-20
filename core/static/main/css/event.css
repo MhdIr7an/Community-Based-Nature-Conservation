@@ -1,0 +1,40 @@
+.eventBtn{
+    background-color: #cccfd4;
+    margin-top: 25px;
+    margin-left: 35px;
+    padding: 5px;
+    border: none;
+}
+
+.containerEvent{
+    margin-left: 100px;
+    width: 200px;
+    height: 300px;
+    background-color: #e8e3e3;
+    justify-content: center;
+}
+
+.ud-mkp-btn{
+    width: 100%;
+    height: 10rem;
+    padding: 6rem 5rem 0 0;
+    display: flex;
+    justify-content: right;
+}
+
+.btn.btn-primary.m-1{
+    height: 3rem;
+    width: 10rem;
+}
+
+/* .app-header{
+    border-bottom: black solid 0.5px;
+} */
+
+.ud-mkp-Items{
+    width: 100%;
+    height: 100rem;
+    /* border: black solid 2px; */
+    /* display: flex; */
+    /* justify-content: space-between; */
+}

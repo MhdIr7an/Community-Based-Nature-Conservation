@@ -1,0 +1,159 @@
+{% extends 'index.html' %}
+
+
+
+{% block sidebar %}
+            {% if request.user.user_type == 1 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'volunteer' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-hands-helping"></i>
+                </span>
+                <span class="hide-menu">Volunteer</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="{% url 'raise_issues' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-exclamation-circle"></i>
+                </span>
+                <span class="hide-menu">Raise Issue</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'resources' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-book"></i>
+                </span>
+                <span class="hide-menu">Resources</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'marketPlace' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-shopping-cart"></i>
+                </span>
+                <span class="hide-menu">MarketPlace</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'donate' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-heart"></i>
+                </span>
+                <span class="hide-menu">Donate</span>
+              </a>
+            </li>
+            {% endif %}
+            {% endblock sidebar %}
+
+
+
+
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .main-container {
+    width: 82%; /* Move the div to the right by 30% */
+    margin-left: 18%; /* Offset for the width change */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    text-align: center; /* Center the "Actions" header */
+  }
+  .text-center {
+    text-align: center;
+  }
+  {% comment %} .btn-accept {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-reject {
+    background-color: #dc3545;
+    color: white;
+  } {% endcomment %}
+</style>
+<div class="main-container">
+    
+    <form method="POST" class="bg-white p-12" enctype="multipart/form-data">
+      {% csrf_token %}
+      <h1 class="w-full text-center font-bold text-xl opacity-70">Raise Issue</h1>
+    <div class=" h-[auto] flex flex-col  items-center justify-center ">
+      <input type="text" name="Location" class=" border rounded-lg w-[600px] h-12 px-2 mt-6 drop-shadow outline-none" required autocomplete="off" placeholder=" Location" value="{{ location }}">
+      <Textarea name="issues" class=" border rounded-lg w-[600px] h-20 px-2 mt-6 drop-shadow outline-none" required placeholder=" Issues">{{ issues }}</Textarea>
+      <input type="date" name="issue-date" class=" border rounded-lg w-[600px] h-12 px-2 mt-6 drop-shadow outline-none" required>
+      <label class="border rounded-lg w-[600px] h-12 px-2 mt-6 drop-shadow outline-none cursor-pointer select-image-label">
+        <span id="file-upload-status" class="file-label">Upload Image</span>
+        <input id="uploaded-img" type="file" name="Img" class="file-hidden" accept="image/*">
+    </label>
+      
+
+
+      <style>
+        .select-image-label {
+            display: block;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+    
+        .file-label {
+            display: inline-block;
+            padding: 0.5rem 0;
+        }
+    
+        .file-label:hover {
+            background-color: #f1f1f1;
+        }
+    
+        .file-hidden {
+            display: none;
+        }
+    </style>
+      <input type="submit" value="Raise Issue" class=" border rounded-lg  w-[600px] h-12 px-2 mt-6 drop-shadow outline-none border-red-600 text-red-600 px-4 py-1 hover:bg-red-600 hover:text-white text-sm font-semibold btn-raise-issue" >
+  <br>
+  {% for message in messages %}
+  <p class="mt-1 mb-2 text-xs {% if 'success' in message.tags %} text-green-500 {% else %} text-red-500 {% endif %}">
+      {{ message }}
+  </p>
+{% endfor %}
+    </div>
+    </form>
+    <script>
+      document.getElementById('uploaded-img').addEventListener('change', function() {
+          const fileInput = document.getElementById('uploaded-img');
+          const fileStatusLabel = document.getElementById('file-upload-status');
+          if (fileInput.files.length > 0) {
+              fileStatusLabel.textContent = `${fileInput.files[0].name} Uploaded`;
+          } else {
+              fileStatusLabel.textContent = 'Upload Image';
+          }
+      });
+    </script>
+</div>
+
+
+
+{% endblock content %}

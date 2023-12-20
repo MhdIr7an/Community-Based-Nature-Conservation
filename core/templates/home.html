@@ -1,0 +1,264 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+  <link rel="shortcut icon" href="./img/fav.png" type="image/x-icon">  
+  <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
+  <link rel="stylesheet" href="{% static 'css/global.css' %}"> 
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="shortcut icon" type="image/png" href="{% static 'main/images/logos/logo-main.png' %}" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Nature Conservation</title>
+ <!--  <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+  crossorigin="anonymous"
+/> -->
+{% comment %} <style>
+  #map {
+    width: 1000px;
+    height: 500px;
+  }
+  @keyframes pulsate {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+  }
+  .pulsating-circle {
+    animation: pulsate 1s ease-out infinite;
+  }
+</style> {% endcomment %}
+</head>
+<body class="bg-gray-100">
+
+ {% comment %} <!-- start navbar -->
+<div class="md:fixed md:w-full md:top-0 md:z-20 flex flex-row justify-between flex-wrap items-center bg-white p-6 border-b border-gray-300">
+    
+  <!-- logo -->
+  {% if page == 'volunteer' %}
+  <div class="flex-none w-56 flex flex-row items-center">
+    <img src="{% static 'img/logo.png' %}" class="w-10 flex-none">
+    <strong class="capitalize ml-1 flex-1">Nature Conservation <span class="font-semibold opacity-40 text-sm">User</span></strong>
+    
+
+    <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden md:block">
+      <i class="fad fa-list-ul opacity-10 text-white outline-none"></i>
+    </button>
+  </div>
+  {% else %}
+  <div class="flex-none w-56 flex flex-row items-center">
+    <img src="{% static 'img/logo.png' %}" class="w-10 flex-none">
+    <strong class="capitalize ml-1 flex-1">Nature Conservation </strong>
+    
+
+    <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden md:block">
+      <i class="fad fa-list-ul opacity-10 text-white outline-none"></i>
+    </button>
+  </div>
+  {% endif %}
+  <!-- end logo -->   
+   
+  <!-- navbar content toggle -->
+
+  {% if request.user.is_authenticated %}
+  <div id="navbarToggle" class="hidden md:flex justify-between items-center md:fixed right-0 mr-6">
+  {% if request.user.user_type == 2 %}
+    <a class="mr-12 font-bold opacity-9 hover:underline text-red-500" href="{% url 'map-alert' request.user.id %}">Alerts</a>
+    {% elif request.user.user_type == 3 %}
+    <div class="mr-16">
+      <a class="font-semibold  mr-6 hover:underline" href="user-home">Home</a>
+      <a class="font-semibold  mr-6 hover:underline" href="user-product-view">Products</a>
+      <a class="font-semibold  mr-6 hover:underline" href="cart">Cart</a>
+      <a class="font-semibold  mr-6 hover:underline" href="view-bookings">Bookings</a>
+      <a class="font-semibold  mr-6 hover:underline" href="donation">Donate</a>
+    </div>
+    
+      {% endif %}
+    <button class="menu-btn focus:outline-none focus:shadow-outline flex flex-wrap items-center">
+      <div class="w-8 h-8 overflow-hidden rounded-full">
+        <img class="w-full h-full object-cover" src="{% static 'img/user.svg' %}" >
+      </div> 
+
+      <div class="ml-2 capitalize flex flex-col text-start ">
+        <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">{{request.user.name}}</h1>
+        {% if request.user.user_type == 0 %}
+        <p class="text-xs font-semibold">Admin</p>
+        {% elif request.user.user_type == 1  %}
+        <p class="text-xs font-semibold">State Committee</p>
+        
+        {% endif %}
+        
+      </div>                        
+    </button>
+    <a class="px-4 py-2 ml-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="logout">
+      <i class="fad fa-user-times text-xs mr-1"></i> 
+      log out
+    </a>
+  </div>
+
+  {% endif %}
+             
+
+
+    </div>
+    <!-- end right -->
+  </div>
+  <!-- end navbar content -->
+
+</div>
+<!-- end navbar -->
+
+
+
+
+  
+<!-- strat wrapper -->
+<div class="h-screen flex flex-row flex-wrap">
+  
+  
+
+  <!-- strat content -->
+  <div class="bg-gray-100 flex-1 py-6 md:mt-16"> {% endcomment %}
+
+
+    {% block content %}
+
+
+    {% endblock content %} 
+    
+   
+        
+
+  {% comment %} </div>
+  <!-- end content -->
+
+</div>
+<!-- end wrapper --> {% endcomment %}
+
+
+  
+  
+
+  
+
+
+
+
+<!-- script -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
+<!-- end script -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWED24ut0NZVXBKwkiynWByxmjj__fVcw&libraries=places"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"
+    ></script>
+
+    <script>
+      var map;
+      var markers = [];
+      var alertCircles = [];
+      var numLayers = 4; // Set the number of ring layers
+      var circleWidth = 10;
+      var pulseInterval;
+
+      initialize();
+
+      function initialize() { 
+          map = new google.maps.Map(document.getElementById('map'), {
+              center: { lat: 19.47995157319853, lng: 75.44224907353417 },
+              zoom: 10 // Set a reasonable zoom level
+          });
+      }
+
+      function updateMap() {
+          var latlongInput = document.getElementById('latlongTextField').value;
+          var locations = latlongInput.split(';').map(loc => loc.trim());
+          
+          markers.forEach(function (marker) {
+              marker.setMap(null);
+          });
+          markers = [];
+          alertCircles.forEach(function (circle) {
+              circle.setMap(null);
+          });
+          alertCircles = [];
+          clearInterval(pulseInterval);
+
+          var bounds = new google.maps.LatLngBounds(); // For centering and zooming
+
+          locations.forEach(function (location) {
+              var latlng = location.split(',').map(coord => parseFloat(coord.trim()));
+
+              var marker = new google.maps.Marker({
+                  position: { lat: latlng[0], lng: latlng[1] },
+                  map: map,
+                  title: "Location",
+                  animation: google.maps.Animation.DROP,
+                  icon: {
+                      path: google.maps.SymbolPath.CIRCLE,
+                      scale: 10,
+                      fillColor: 'red',
+                      fillOpacity: 1,
+                      strokeColor: 'darkred',
+                      strokeOpacity: 0.5,
+                      strokeWeight: 2
+                  }
+              });
+              markers.push(marker);
+
+              var radius = 100;
+              for (var i = 0; i < numLayers; i++) {
+                  var alertCircle = new google.maps.Circle({
+                      strokeColor: 'red',
+                      strokeOpacity: 0.5,
+                      strokeWeight: circleWidth,
+                      fillColor: 'red',
+                      fillOpacity: 0.1,
+                      map: map,
+                      center: { lat: latlng[0], lng: latlng[1] },
+                      radius: radius,
+                      animation: google.maps.Animation.BOUNCE
+                  });
+                  alertCircles.push(alertCircle);
+
+                  radius += 50;
+              }
+
+              function updatePulse() {
+                  alertCircles.forEach(function (circle) {
+                      circle.setOptions({ fillOpacity: 0.1, strokeOpacity: 0.5 });
+                      setTimeout(function () {
+                          circle.setOptions({ fillOpacity: 0.05, strokeOpacity: 0.2 });
+                      }, 500);
+                  });
+              }
+              pulseInterval = setInterval(updatePulse, 1000);
+
+              bounds.extend(new google.maps.LatLng(latlng[0], latlng[1])); // For centering and zooming
+          });
+
+          // Center and zoom the map to include all locations
+          map.fitBounds(bounds);
+      }
+
+      google.maps.event.addDomListener(window, 'load', updateMap);
+  </script>
+
+</body>
+</html>

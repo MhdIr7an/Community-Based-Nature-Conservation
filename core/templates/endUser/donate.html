@@ -1,0 +1,174 @@
+{% extends 'index.html' %} 
+
+
+
+{% block sidebar %}
+            {% if request.user.user_type == 1 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'volunteer' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-hands-helping"></i>
+                </span>
+                <span class="hide-menu">Volunteer</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'raise_issues' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-exclamation-circle"></i>
+                </span>
+                <span class="hide-menu">Raise Issue</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'resources' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-book"></i>
+                </span>
+                <span class="hide-menu">Resources</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'marketPlace' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-shopping-cart"></i>
+                </span>
+                <span class="hide-menu">MarketPlace</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="{% url 'donate' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-heart"></i>
+                </span>
+                <span class="hide-menu">Donate</span>
+              </a>
+            </li>
+            {% endif %}
+            {% endblock sidebar %}
+
+
+
+
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .main-container {
+    width: 82%; /* Move the div to the right by 30% */
+    margin-left: 18%; /* Offset for the width change */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    text-align: center; /* Center the "Actions" header */
+  }
+  .text-center {
+    text-align: center;
+  }
+  {% comment %} .btn-accept {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-reject {
+    background-color: #dc3545;
+    color: white;
+  } {% endcomment %}
+
+  @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+:root {
+  --light-grey: #F6F9FC;
+  --dark-terminal-color: #0A2540;
+  --accent-color: #635BFF;
+  --radius: 3px;
+}
+
+#submit {
+  background-color: var(--accent-color);
+}
+
+#submit {
+  background: var(--accent-color);
+  border-radius: var(--radius);
+  color: white;
+  border: 0;
+  padding: 12px 16px;
+  margin-top: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: block;
+}
+#submit:hover {
+  filter: contrast(115%);
+  background: #634BFF
+}
+#submit:active {
+  transform: translateY(0px) scale(0.98);
+  filter: brightness(0.9);
+}
+#submit:disabled {
+  opacity: 0.5;
+  cursor: none;
+}
+
+#payment-form {
+  border: #F6F9FC solid 1px;
+  border-radius: var(--radius);
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 30px 50px -20px rgb(50 50 93 / 25%), 0 30px 60px -30px rgb(0 0 0 / 30%);
+}
+</style>
+<div class="main-container">
+  <center>
+    <section>
+      <h1 class="font-semibold">Donate to Support Our Cause</h1>
+        <p class="font-semibold">Thank you for considering a donation to support our mission. Your generosity helps us make a positive impact in the world.</p>
+    </section>
+    <section>
+        <h2 class="font-semibold">Why Donate?</h2>
+        <p class="font-semibold">We rely on the support of donors like you to continue our important work. Your contribution allows us to:</p>
+        <ul>
+            <li class="font-semibold">Provide assistance to those in need.</li>
+            <li class="font-semibold">Advance research and innovation.</li>
+            <li class="font-semibold">Make a lasting difference in our community.</li>
+        </ul>
+    </section>
+  <form id="payment-form" method="POST">
+    {% csrf_token %}
+    <div id="link-authentication-element">
+      <!-- Elements will create authentication element here -->
+    </div>
+    <div id="payment-element">
+      <input type="number" name="amount" id="amount" class="border rounded-lg w-[400px] h-12 px-2 mt-6 drop-shadow outline-none" required autocomplete="off" placeholder=" Enter Amount">
+    </div>
+    <input type="submit" value="Donate" class=" border rounded-lg  w-[400px] h-12 px-2 mt-6 drop-shadow outline-none border-green-600 text-green-600 px-4 py-1 hover:bg-green-600 hover:text-white text-sm font-semibold btn-donate" >
+    {% comment %} <button id="submit">Pay now</button> {% endcomment %}
+    <div id="error-message">
+      <!-- Display error message to your customers here -->
+    </div>
+  </form>
+</center>
+
+
+</div>
+{% endblock content %}

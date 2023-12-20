@@ -1,0 +1,166 @@
+{% extends 'index.html' %} 
+
+{% block sidebar %}
+{% include 'sidebar.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .main-container {
+    width: 82%; /* Move the div to the right by 30% */
+    margin-left: 18%; /* Offset for the width change */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    text-align: center; /* Center the "Actions" header */
+  }
+  .text-center {
+    text-align: center;
+  }
+
+  .comment-section {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+  }
+  
+  .comment-form {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .comment-form textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .comment-form button {
+    padding: 10px 20px;
+    background-color: #4285f4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .comment-form button:hover {
+    background-color: #5a95f5;
+  }
+  
+  .comments {
+    /* Add styles as needed */
+  }
+  
+  .comment {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .comment-content {
+    flex: 1;
+  }
+  
+  .comment-author {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  .comment-text {
+    color: #333;
+  }
+
+  .own-comment {
+    text-align: right; /* Align right for own comments */
+    background-color: #e2f5ff; /* Change background color for own comments */
+  }
+  {% comment %} .btn-accept {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-reject {
+    background-color: #dc3545;
+    color: white;
+  } {% endcomment %}
+</style>
+<div class="main-container">
+    
+  <h1 class="w-full text-center font-bold text-xl opacity-70">Issue</h1>
+  <div class="h-[490px] flex flex-col items-center justify-center">
+    <center>
+      <img src="{{ issue.img.url }}" alt="{{ issue.img.url }}" class="w-44 h-44 object-cover">
+    </center>
+    <h3 class="font-semibold opacity-80 text-lg mb-1">Location : {{ issue.location }}</h3>
+    <a href="{% url 'user_profile' issue.user_id.user_id %}">
+      <h3 class="font-semibold opacity-80 text-lg mb-1">Raised User : {{ issue.user_id.username }}</h3>
+    </a>
+    <h3 class="font-semibold opacity-80 text-lg mb-1">Issue date : {{ issue.issue_date }}</h3>
+    <h3 class="font-semibold opacity-80 text-lg mb-1">Issues : {{ issue.issues }}</h3>
+    {% if issue.is_closed == True %}
+    <h3 class="font-semibold opacity-80 text-lg mb-1 text-green-500">Closed Issue</h3>
+    {% else %}
+    <h3 class="font-semibold opacity-80 text-lg mb-1 text-red-500">Open Issue</h3>
+    {% endif %}
+  </div>
+  <!-- Comment Section -->
+  <div class="comment-section">
+    <form method="post" action="">
+    {% csrf_token %}
+    <!-- Comment Form -->
+    <div class="comment-form">
+      <textarea name="comment" placeholder="Add a comment..." rows="3"></textarea>
+      <button class="comment-btn">Comment</button>
+    </div>
+    </form>
+    {% for comment in comments %}
+    <!-- Comments -->
+    <div class="comments">
+      <div class="comment {% if comment.user_id == request.user %}own-comment{% endif %}">
+        {% comment %} <img src="user-avatar.jpg" alt="User Avatar" class="user-avatar"> {% endcomment %}
+        <div class="comment-content">
+          {% if comment.user_id != request.user %}
+            <span class="comment-author">{{ comment.user_id.username }}</span>
+          {% endif %}
+          
+        {% comment %} <div class="comment-time"> {% endcomment %}
+          <span class="comment-date-time ">{{ comment.datetime }}</span>
+        {% comment %} </div> {% endcomment %}<br>
+          <span class="comment-text">{{ comment.comment }}</span>
+        </div>
+      </div>
+
+      <!-- Add more comment blocks here -->
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

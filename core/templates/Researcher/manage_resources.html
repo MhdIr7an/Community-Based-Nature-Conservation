@@ -1,0 +1,96 @@
+{% extends 'index.html' %}
+
+{% block sidebar %}
+{% if request.user.user_type == 4 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'publish_paper' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="hide-menu">Publish Paper</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="{% url 'manage_resources' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-book"></i>
+                </span>
+                <span class="hide-menu">Manage Resources</span>
+              </a>
+            </li>
+      {% endif %}
+  {% endblock sidebar %}
+
+
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .main-container {
+    width: 82%; /* Move the div to the right by 30% */
+    margin-left: 18%; /* Offset for the width change */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    text-align: center; /* Center the "Actions" header */
+  }
+  .text-center {
+    text-align: center;
+  }
+  {% comment %} .btn-accept {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-reject {
+    background-color: #dc3545;
+    color: white;
+  } {% endcomment %}
+</style>
+<div class="main-container">
+    <table class="table w-full mt-4">
+        <thead class="table-head bg-amber-500 h-14">
+            <tr class="bg-gray-400">
+                <th class="w-1/25">#</th>
+                <th class="w-1/4">Published Date</th>
+                <th class="w-1/2">Decription</th>
+                <th class="w-1/4 text-center">Action</th> 
+            </tr>
+        </thead>
+        <tbody>
+          {% for resource in resources %}
+          
+            <tr class="odd:bg-gray-100 even:bg-white">
+              <th class="py-2"><p class="text-black font-semibold text-base">{{ forloop.counter }}</p></th>
+              <th class="py-2"><p class="text-black font-semibold text-base">{{ resource.published_date|date:"d-m-Y" }}</p></th>
+              <th class="py-2"><p class="text-black font-semibold text-base">{{ resource.description }}</p></th>
+              <th class="py-2 text-center"> <!-- Centered Actions -->
+                <a href="{{ resource.published_file.url }}" target="_blank" class="rounded-lg border text-green-600 border-green-600 px-4 py-1 bg-red mr-4 text-sm font-semibold hover:bg-green-600 hover:text-white btn-view">View</a> 
+                <a href="{% url 'delete_resource' resource.resource_id %}" class="rounded-lg border border-red-600 text-red-600 px-4 py-1 hover:bg-red-600 hover:text-white text-sm font-semibold btn-delete">Delete</a>
+            </th>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock content %}

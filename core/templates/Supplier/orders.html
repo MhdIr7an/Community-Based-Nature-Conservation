@@ -1,0 +1,155 @@
+{% extends 'index.html' %}
+
+{% block sidebar %}
+{% if request.user.user_type == 3 %}
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="{% url 'orders' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-shopping-cart"></i>
+                </span>
+                <span class="hide-menu">Orders</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'list_items' %}" aria-expanded="false">
+                <span>
+                  <i class="fas fa-list"></i>
+                </span>
+                <span class="hide-menu">List Products</span>
+              </a>
+            </li>
+      {% endif %}
+  {% endblock sidebar %}
+
+
+  {% block content %}
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    .main-container {
+      width: 82%; /* Move the div to the right by 30% */
+      margin-left: 18%; /* Offset for the width change */
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+      text-align: center; /* Center the "Actions" header */
+    }
+    .text-center {
+      text-align: center;
+    }
+    {% comment %} .btn-accept {
+      background-color: #28a745;
+      color: white;
+    }
+    .btn-reject {
+      background-color: #dc3545;
+      color: white;
+    } {% endcomment %}
+  </style>
+  <div class="main-container">
+    {% comment %} <div class="flex justify-between mx-12 pt-6">
+      <a href="{% url 'cancelled_orders' %}" class="rounded-lg border text-green-600 border-red-600 px-4 py-1 bg-red mr-4 text-sm font-semibold hover:bg-red-600 hover:text-white btn-cancelled_orders" style="float: right;margin-left: 80%;width: auto; ">Cancelled Orders</a>
+    </div> {% endcomment %}
+      <div class="flex justify-between mx-12 pt-6">
+          <h3 class="font-bold">
+              Active Orders
+          </h3>
+      </div>
+      <table class="table w-full mt-4">
+          <thead class="table-head bg-amber-500 h-14">
+              <tr class="bg-gray-400">
+                  <th class="w-1/25">#</th>
+                  <th class="w-1/4">Customer</th>
+                  <th class="w-1/4">Item Name</th>
+                  <th class="w-1/7">Date</th>
+                  <th class="w-1/8">Qty</th>
+                  <th class="w-1/8">Price</th>
+                  <th class="w-1/8">Total</th>
+                  <th class="w-1/11">Actions</th>
+                </tr>
+          </thead>
+          <tbody>
+            {% for order in active_orders %}
+      <tr class="odd:bg-gray-100 even:bg-white">
+          <th class="py-2"><p class="text-black font-semibold text-base">{{ forloop.counter }}</p></th>
+          <th class="py-2"><a href="{% url 'user_profile' order.customer_id.user_id %}"><p class="text-black font-semibold text-base">{{ order.customer_id.username }}</p></a></th>
+          <th class="py-2"><a href="{% url 'item_description' order.item_id.item_id %}"><p class="text-black font-semibold text-base">{{ order.item_id.item_name }}</p></a></th>
+          {% comment %} <th class="py-2">
+            <center>
+              <img src="{{ order.item_id.img.url }}" alt="{{ order.item_id.item_name }}" class="w-20 h-20 object-cover">
+          </center>
+            </th> {% endcomment %}
+          <th class="py-2"><p class="text-black font-semibold text-base">{{ order.date|date:"d.m.Y" }}</p></th>
+          <th class="py-2"><p class="text-black font-semibold text-base">{{ order.qty }}</p></th>
+          <th class="py-2"><p class="text-black font-semibold text-base">{{ order.price }}</p></th>
+          <th class="py-2"><p class="text-black font-semibold text-base">{{ order.total }}</p></th>
+          <th class="py-2 text-center">
+            <a href="{% url 'order_delivered' order.order_id %}" class="rounded-lg border text-green-600 border-green-600 px-4 py-1 bg-red mr-4 text-sm font-semibold hover:bg-green-600 hover:text-white btn-accept">Delivered</a>
+           </th>
+      </tr>
+  {% endfor %}
+          </tbody>
+      </table>
+  </div>
+  
+  <div class="main-container" style="margin-top:10px;">
+      <div class="flex justify-between mx-12 pt-6">
+          <h3 class="font-bold">
+              Previous Orders
+          </h3>
+      </div>
+      <table class="table w-full mt-4">
+          <thead class="table-head bg-amber-500 h-14">
+                <tr class="bg-gray-400">
+                  <th class="w-1/25">#</th>
+                  <th class="w-1/4">Customer</th>
+                  <th class="w-1/4">Item Name</th>
+                  <th class="w-1/7">Date</th>
+                  <th class="w-1/8">Qty</th>
+                  <th class="w-1/8">Price</th>
+                  <th class="w-1/8">Total</th>
+                  <th class="w-1/7">Deliver Date</th>
+                </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+      <tr class="odd:bg-gray-100 even:bg-white">
+          <th class="py-2"><p class="text-black font-semibold text-base">{{ forloop.counter }}</p></th>
+          <th class="py-2"><a href="{% url 'user_profile' order.customer_id.user_id %}"><p class="text-black font-semibold text-base">{{ order.customer_id.username }}</p></a></th>
+          <th class="py-2"><a href="{% url 'item_description' order.item_id.item_id %}"><p class="text-black font-semibold text-base">{{ order.item_id.item_name }}</p></a></th>
+          {% comment %} <th class="py-2">
+            <center>
+              <img src="{{ order.item_id.img.url }}" alt="{{ order.item_id.item_name }}" class="w-20 h-20 object-cover">
+          </center>
+            </th> {% endcomment %}
+            <th class="py-2"><p class="text-black font-semibold text-base">{{ order.date|date:"d.m.Y" }}</p></th>
+            <th class="py-2"><p class="text-black font-semibold text-base">{{ order.qty }}</p></th>
+          <th class="py-2"><p class="text-black font-semibold text-base">{{ order.price }}</p></th>
+          <th class="py-2"><p class="text-black font-semibold text-base">{{ order.total }}</p></th>
+          <th class="py-2"><p class="text-black font-semibold text-base">{{ order.delivered_date|date:"d.m.Y" }}</p></th>
+      </tr>
+  {% endfor %}
+          </tbody>
+      </table>
+  </div>
+  
+  
+  {% endblock content %}

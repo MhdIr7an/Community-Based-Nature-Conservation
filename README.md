@@ -57,8 +57,8 @@
 ## 🧰 Built With
 <div>
 <img alt="Django Icon" width="120" height="90" src="https://cdn.iconscout.com/icon/free/png-256/free-django-13-1175187.png?f=webp&amp;w=256">
-<img alt="Free Stripe Logo Icon" width="120" height="90" src="https://cdn.iconscout.com/icon/free/png-256/free-stripe-3521744-2945188.png?f=webp&amp;w=256">
-<img alt="Free Mysql Logo Icon" width="120" height="90" src="https://cdn.iconscout.com/icon/free/png-256/free-mysql-6-226028.png?f=webp&amp;w=256">
+<img alt="Stripe Icon" width="120" height="90" src="https://cdn.iconscout.com/icon/free/png-256/free-stripe-3521744-2945188.png?f=webp&amp;w=256">
+<img alt="sqlite Icon" width="80" height="70" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/sqlite-file-1942493-1640055.png?f=webp&amp;w=256">
 <img alt="Javascript Icon" width="100" height="80" src="https://cdn.iconscout.com/icon/free/png-256/free-javascript-2038874-1720087.png?f=webp&amp;w=256">
 <img alt="Css Icon" width="100" height="80" src="https://cdn.iconscout.com/icon/free/png-256/free-css-38-226095.png?f=webp&amp;w=256">
 <img alt="Html Icon" width="100" height="80" src="https://cdn.iconscout.com/icon/free/png-256/free-html-59-225995.png?f=webp&amp;w=256">
@@ -77,10 +77,10 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    pip install -r requirements.txt
    ```
-3. create a .env file in the root and add SECRET_KEY(Your django secret key)
+3. create a .env file in the root and add SECRET_KEY(Your django secret key), STRIPE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY, SMTP_USERNAME(email), SMTP_PASSWORD(email password)
 4. run server
    ```sh
    pip manage.py runserver
    ```
 
-<p align="right">(<a href="#-erp">back to top</a>)<p>
+<p align="right">(<a href="#-community-based-nature-conservation">back to top</a>)<p>

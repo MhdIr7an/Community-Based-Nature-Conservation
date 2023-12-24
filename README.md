@@ -1,11 +1,11 @@
-# Community Based Nature Conservation
+# 🌳 Community Based Nature Conservation
 <details>
   <summary>🚀 Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#-about-the-project">About The Project</a>
       <ul>
-        <li><a href="#modules">Modules</a></li>
+        <li><a href="#-modules">Modules</a></li>
         <li><a href="#admin-issue-verification">Admin - Issue Verification</a></li>
         <li><a href="#organiser-event-organisation">Organiser - Event Organisation</a></li>
         <li><a href="#user-event-registration">User - Event Registration</a></li>
@@ -14,10 +14,10 @@
       </ul>
     </li>
     <li>
-      <a href="#built-with">Built With</a>
+      <a href="#-built-with">Built With</a>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <a href="#-getting-started">Getting Started</a>
     </li>
   </ol>
 </details>
@@ -83,4 +83,4 @@ To get a local copy up and running follow these simple example steps.
    pip manage.py runserver
    ```
 
-<p align="right">(<a href="#erp">back to top</a>)<p>
+<p align="right">(<a href="#-erp">back to top</a>)<p>
